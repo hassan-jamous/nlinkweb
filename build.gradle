@@ -13,6 +13,16 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'docker'
 apply plugin: 'io.spring.dependency-management'
 
+sourceSets {
+    integrationTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/integrationTest/java')
+        }
+        resources.srcDir file('src/integrationTest/resources')
+    }
+}
 
 repositories {
     maven {
@@ -20,6 +30,17 @@ repositories {
     }
     mavenCentral()
 }
+
+configurations {
+    ajc
+    aspects
+    compile {
+        extendsFrom aspects
+    }
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+}
+
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -29,6 +50,8 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.projectlombok:lombok:1.16.10')
+    ajc('org.aspectj:aspectjtools:1.8.10')
+    aspects('org.springframework:spring-aspects:4.3.6.RELEASE')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
@@ -37,6 +60,31 @@ dependencyManagement {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:Finchley.M8"
     }
 }
+
+def aspectj = { destDir, aspectPath, inpath, classpath ->
+    ant.taskdef(resource: "org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties",
+            classpath: configurations.ajc.asPath)
+
+    ant.iajc(
+            maxmem: "1024m", fork: "true", Xlint: "ignore",
+            destDir: destDir,
+            aspectPath: aspectPath,
+            inpath: inpath,
+            classpath: classpath,
+            source: project.sourceCompatibility,
+            target: project.targetCompatibility
+    )
+}
+
+compileJava {
+    doLast {
+        aspectj project.sourceSets.main.output.classesDir.absolutePath,
+                configurations.aspects.asPath,
+                project.sourceSets.main.output.classesDir.absolutePath,
+                project.sourceSets.main.runtimeClasspath.asPath
+    }
+}
+
 
 task buildDocker(type: Docker, dependsOn: build) {
     push = false

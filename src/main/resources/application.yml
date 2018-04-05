@@ -1,2 +1,11 @@
 info:
-  description: asfasdfasdf
+  description: asdf3
+logging:
+  level:
+    org.springframework.web: DEBUG
+    com.nab.nlinkweb: DEBUG
+application:
+  logging:
+    level: INFO
+
+management.endpoints.web.exposure.include: '*'
