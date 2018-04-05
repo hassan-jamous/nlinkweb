@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HelloWorldController {
-    
+
     @Autowired
     Configuration config;
 
     @RequestMapping("/")
     public String home() {
-        return config.description;
+        return config.getDescription();
     }
 }
