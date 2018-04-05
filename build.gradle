@@ -12,6 +12,7 @@ apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'docker'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'checkstyle'
 
 sourceSets {
     integrationTest {
@@ -23,6 +24,20 @@ sourceSets {
         resources.srcDir file('src/integrationTest/resources')
     }
 }
+
+checkstyle {
+    toolVersion = "7.0"
+}
+checkstyleMain {
+    configFile = rootProject.file('buildsupport/checkstyle/checkstyle-main.xml')
+}
+checkstyleTest {
+    configFile = rootProject.file('buildsupport/checkstyle/checkstyle-test.xml')
+}
+checkstyleIntegrationTest {
+    configFile = rootProject.file('buildsupport/checkstyle/checkstyle-test.xml')
+}
+
 
 repositories {
     maven {

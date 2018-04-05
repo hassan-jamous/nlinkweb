@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloWorldController {
 
     @Autowired
-    Configuration config;
+    private Configuration config;
 
     @RequestMapping("/")
     @Loggable

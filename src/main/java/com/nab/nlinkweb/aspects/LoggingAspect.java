@@ -7,9 +7,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,10 +16,10 @@ import java.util.Objects;
 
 @Aspect
 public class LoggingAspect {
-    @Autowired
-    Configuration config;
+    private static final Logger LOGGER = Logger.getLogger(LoggingAspect.class.getName());
 
-    private final static Logger LOGGER = Logger.getLogger(LoggingAspect.class.getName());
+    @Autowired
+    private Configuration config;
 
     @Pointcut("execution(@Loggable * *.*(..))")
     void annotatedMethod() {
