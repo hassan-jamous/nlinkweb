@@ -21,15 +21,15 @@ public class LoggingAspect {
     @Autowired
     private Configuration config;
 
-    @Pointcut("execution(@Loggable * *.*(..))")
-    void annotatedMethod() {
+    @Pointcut("execution(@com.nab.nlinkweb.aspects.interfaces.Loggable * *.*(..))")
+    void annotatedClass() {
     }
 
-    @Pointcut("execution(* (@Loggable *).*(..))")
+    @Pointcut("execution(* (@com.nab.nlinkweb.aspects.interfaces.Loggable *).*(..))")
     void methodOfAnnotatedClass() {
     }
 
-    @Around("annotatedMethod() || methodOfAnnotatedClass()")
+    @Around("annotatedClass() || methodOfAnnotatedClass()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
         LOGGER.setLevel(Level.parse(config.getLogLevel()));
         long start = System.currentTimeMillis();
