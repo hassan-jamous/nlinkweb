@@ -1,7 +1,7 @@
 package com.nab.nlinkweb.aspects;
 
 
-import com.nab.nlinkweb.config.Configuration;
+import com.nab.nlinkweb.config.Application.Configuration;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

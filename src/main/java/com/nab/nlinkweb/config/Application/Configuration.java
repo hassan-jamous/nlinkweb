@@ -1,4 +1,4 @@
-package com.nab.nlinkweb.config;
+package com.nab.nlinkweb.config.Application;
 
 import lombok.Getter;
 import lombok.Setter;

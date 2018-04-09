@@ -25,6 +25,7 @@ sourceSets {
     }
 }
 
+
 checkstyle {
     toolVersion = "7.0"
 }
@@ -47,6 +48,7 @@ repositories {
 }
 
 configurations {
+    jaxb
     ajc
     aspects
     compile {
@@ -60,14 +62,57 @@ configurations {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+task genJaxb {
+    ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
+    ext.classesDir = "${buildDir}/classes/jaxb"
+    ext.schema = "src/main/resources/NLINK.wsdl"
+
+    outputs.dir classesDir
+
+    doLast() {
+        project.ant {
+            taskdef name: "xjc", classname: "com.sun.tools.xjc.XJCTask",
+                    classpath: configurations.jaxb.asPath
+            mkdir(dir: sourcesDir)
+            mkdir(dir: classesDir)
+
+            xjc(destdir: sourcesDir, schema: schema,
+                    package: "nlink.wsdl.domain") {
+                arg(value: "-wsdl")
+                produces(dir: sourcesDir, includes: "**/*.java")
+            }
+
+            javac(destdir: classesDir, source: sourceCompatibility, target: targetCompatibility, debug: true,
+                    debugLevel: "lines,vars,source",
+                    classpath: configurations.jaxb.asPath) {
+                src(path: sourcesDir)
+                include(name: "**/*.java")
+                include(name: "*.java")
+            }
+
+            copy(todir: classesDir) {
+                fileset(dir: sourcesDir, erroronmissingdir: false) {
+                    exclude(name: "**/*.java")
+                }
+            }
+        }
+    }
+}
+
 dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-config')
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.projectlombok:lombok:1.16.10')
+    compile("org.springframework.ws:spring-ws-core")
+
     ajc('org.aspectj:aspectjtools:1.8.10')
     aspects('org.springframework:spring-aspects:4.3.6.RELEASE')
     testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    jaxb ('com.sun.xml.bind:jaxb-xjc:2.1.7')
+    compile(files(genJaxb.classesDir).builtBy(genJaxb))
+
 }
 
 dependencyManagement {
@@ -100,10 +145,15 @@ compileJava {
     }
 }
 
+bootJar {
+    baseName = 'nlinkweb'
+    version =  '0.1.0'
+    from genJaxb.classesDir
+}
 
 task buildDocker(type: Docker, dependsOn: build) {
     push = false
-    applicationName = jar.baseName
+    applicationName = bootJar.baseName
     dockerfile = file('Dockerfile')
     doFirst {
         copy {
@@ -116,3 +166,5 @@ task buildDocker(type: Docker, dependsOn: build) {
 task wrapper(type: Wrapper) {
     gradleVersion = '4.6'
 }
+
+
