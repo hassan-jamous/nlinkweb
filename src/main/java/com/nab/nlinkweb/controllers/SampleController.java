@@ -2,13 +2,14 @@ package com.nab.nlinkweb.controllers;
 
 import com.nab.nlinkweb.aspects.interfaces.Loggable;
 import com.nab.nlinkweb.config.Application.Configuration;
+import com.nab.nlinkweb.exceptions.InputValidationException;
 import com.nab.nlinkweb.services.currency.CurrencyServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HelloWorldController {
+public class SampleController {
 
     @Autowired
     private Configuration config;
@@ -25,5 +26,10 @@ public class HelloWorldController {
     @RequestMapping("/soapTest")
     public double soap() {
         return currencyServices.convertCurrency();
+    }
+
+    @RequestMapping("/exception")
+    public double exception() {
+        throw new InputValidationException();
     }
 }

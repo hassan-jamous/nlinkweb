@@ -12,6 +12,5 @@ public class CurrencyServices {
 
     public double convertCurrency() {
         return nlinkSoapConsumer.getConversionRate().getConversionRate();
-
     }
 }
