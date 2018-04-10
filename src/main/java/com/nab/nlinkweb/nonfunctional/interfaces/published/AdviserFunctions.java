@@ -1,4 +1,4 @@
-package com.nab.nlinkweb.nonfunctional.interfaces;
+package com.nab.nlinkweb.nonfunctional.interfaces.published;
 
 import com.nab.nlinkweb.domain.restdomain.Adviser;
 import com.nab.nlinkweb.domain.restdomain.Client;

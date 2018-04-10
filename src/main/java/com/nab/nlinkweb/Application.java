@@ -1,5 +1,6 @@
 package com.nab.nlinkweb;
 
+import com.nab.nlinkweb.nonfunctional.config.Application.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,7 +14,7 @@ import org.springframework.core.env.Environment;
 public class Application {
 
     @Autowired
-    private Environment env;
+    private Configuration config;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

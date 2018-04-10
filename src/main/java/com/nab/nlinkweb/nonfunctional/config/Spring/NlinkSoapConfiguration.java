@@ -14,5 +14,4 @@ public class NlinkSoapConfiguration {
         return marshaller;
     }
 
-
 }

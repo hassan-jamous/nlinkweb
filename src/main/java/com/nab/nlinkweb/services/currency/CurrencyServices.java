@@ -11,14 +11,13 @@ public class CurrencyServices {
     @Autowired
     private NlinkSoapConsumer nlinkSoapConsumer;
 
-    @HystrixCommand(groupKey = "CurrencyServices", commandKey = "convertCurrency", fallbackMethod = "hystrixFallback")
     public double convertCurrency() {
         return nlinkSoapConsumer.getConversionRate().getConversionRate();
     }
 
     @HystrixCommand(groupKey = "CurrencyServices", commandKey = "convertCurrencyHystrix", fallbackMethod = "hystrixFallback")
     public double convertCurrencyHystrix() {
-        return nlinkSoapConsumer.getConversionRate().getConversionRate();
+        return nlinkSoapConsumer.getConversionRateHystrixTest().getConversionRate();
     }
 
     public double hystrixFallback() {

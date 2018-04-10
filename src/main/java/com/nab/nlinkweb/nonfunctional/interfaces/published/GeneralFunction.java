@@ -1,4 +1,4 @@
-package com.nab.nlinkweb.nonfunctional.interfaces;
+package com.nab.nlinkweb.nonfunctional.interfaces.published;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

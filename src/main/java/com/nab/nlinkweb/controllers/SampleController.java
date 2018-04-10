@@ -3,7 +3,7 @@ package com.nab.nlinkweb.controllers;
 import com.nab.nlinkweb.nonfunctional.aspects.interfaces.Loggable;
 import com.nab.nlinkweb.nonfunctional.config.Application.Configuration;
 import com.nab.nlinkweb.nonfunctional.exceptions.InputValidationException;
-import com.nab.nlinkweb.nonfunctional.interfaces.GeneralFunction;
+import com.nab.nlinkweb.nonfunctional.interfaces.published.GeneralFunction;
 import com.nab.nlinkweb.services.currency.CurrencyServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,16 +15,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class SampleController implements GeneralFunction {
 
     @Autowired
-    private Configuration config;
-
-    @Autowired
     private CurrencyServices currencyServices;
 
     @Override
     @Loggable
     @RequestMapping(method = GET, value = "/")
     public String home() {
-        return config.getDescription();
+        return Configuration.logLevel + Configuration.description;
     }
 
     @Override
