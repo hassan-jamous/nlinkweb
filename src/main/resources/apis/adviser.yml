@@ -1,0 +1,52 @@
+swagger: "2.0"
+info:
+  description: "This is nlink API"
+  version: "1.0.0"
+  title: "nlink"
+
+
+schemes:
+- "http"
+paths:
+
+  /advisers/{adviserId}:
+    get:
+      summary: "get adviser information"
+      description: "Returns a single adviser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "adviserId"
+        in: "path"
+        description: "ID of adviser to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Adviser"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Adviser not found"
+
+definitions:
+  Adviser:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"

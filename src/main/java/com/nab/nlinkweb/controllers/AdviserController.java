@@ -3,6 +3,7 @@ package com.nab.nlinkweb.controllers;
 
 import com.nab.nlinkweb.domain.restdomain.Adviser;
 import com.nab.nlinkweb.domain.restdomain.Client;
+import com.nab.nlinkweb.nonfunctional.varification.business.InputVerification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +20,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class AdviserController {
 
     @RequestMapping(method = DELETE, value = "/{adviserId}", headers = "API-VERSION=1")
-    public ResponseEntity<Adviser> deleteAdviser(@PathVariable Long adviserId) {
+    public ResponseEntity<Adviser> deleteAdviser(@PathVariable String adviserId) {
         return new ResponseEntity<>(new Adviser(), HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(method = GET, value = "/{adviserId}", headers = "API-VERSION=1")
-    public ResponseEntity<Adviser> loadAdviser(@PathVariable Long adviserId) {
+    @RequestMapping(method = GET, value = "/{adviserId}")
+    public ResponseEntity<Adviser> loadAdviser(@PathVariable String adviserId) {
+        InputVerification.verifyRequestInput(adviserId);
         return Optional.of(new Adviser())
                 .map(u -> new ResponseEntity<>(u, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
