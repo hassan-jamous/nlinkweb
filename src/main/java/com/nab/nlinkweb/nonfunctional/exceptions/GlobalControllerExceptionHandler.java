@@ -1,4 +1,4 @@
-package com.nab.nlinkweb.exceptions;
+package com.nab.nlinkweb.nonfunctional.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

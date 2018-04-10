@@ -1,4 +1,4 @@
-package com.nab.nlinkweb.exceptions;
+package com.nab.nlinkweb.nonfunctional.exceptions;
 
 import lombok.Getter;
 import lombok.Setter;

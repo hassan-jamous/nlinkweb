@@ -1,7 +1,7 @@
-package com.nab.nlinkweb.aspects;
+package com.nab.nlinkweb.nonfunctional.aspects;
 
 
-import com.nab.nlinkweb.config.Application.Configuration;
+import com.nab.nlinkweb.nonfunctional.config.Application.Configuration;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -21,11 +21,11 @@ public class LoggingAspect {
     @Autowired
     private Configuration config;
 
-    @Pointcut("execution(@com.nab.nlinkweb.aspects.interfaces.Loggable * *.*(..))")
+    @Pointcut("execution(@com.nab.nlinkweb.nonfunctional.aspects.interfaces.Loggable * *.*(..))")
     void annotatedClass() {
     }
 
-    @Pointcut("execution(* (@com.nab.nlinkweb.aspects.interfaces.Loggable *).*(..))")
+    @Pointcut("execution(* (@com.nab.nlinkweb.nonfunctional.aspects.interfaces.Loggable *).*(..))")
     void methodOfAnnotatedClass() {
     }
 

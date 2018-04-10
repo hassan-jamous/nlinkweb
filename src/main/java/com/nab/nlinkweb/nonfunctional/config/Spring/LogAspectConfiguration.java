@@ -1,6 +1,6 @@
-package com.nab.nlinkweb.config.Spring;
+package com.nab.nlinkweb.nonfunctional.config.Spring;
 
-import com.nab.nlinkweb.aspects.LoggingAspect;
+import com.nab.nlinkweb.nonfunctional.aspects.LoggingAspect;
 import org.aspectj.lang.Aspects;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

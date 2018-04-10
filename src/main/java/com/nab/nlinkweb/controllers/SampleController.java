@@ -1,8 +1,8 @@
 package com.nab.nlinkweb.controllers;
 
-import com.nab.nlinkweb.aspects.interfaces.Loggable;
-import com.nab.nlinkweb.config.Application.Configuration;
-import com.nab.nlinkweb.exceptions.InputValidationException;
+import com.nab.nlinkweb.nonfunctional.aspects.interfaces.Loggable;
+import com.nab.nlinkweb.nonfunctional.config.Application.Configuration;
+import com.nab.nlinkweb.nonfunctional.exceptions.InputValidationException;
 import com.nab.nlinkweb.services.currency.CurrencyServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +26,11 @@ public class SampleController {
     @RequestMapping("/soapTest")
     public double soap() {
         return currencyServices.convertCurrency();
+    }
+
+    @RequestMapping("/hystrix")
+    public double hystrix() {
+        return currencyServices.convertCurrencyHystrix();
     }
 
     @RequestMapping("/exception")

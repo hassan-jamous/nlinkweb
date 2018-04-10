@@ -12,6 +12,8 @@ import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 @Component
 public class NlinkSoapConsumer extends WebServiceGatewaySupport {
 
+    public static final int SLEEP_MILLI = 6000;
+
     @Autowired
     public NlinkSoapConsumer(Jaxb2Marshaller marshaller) {
         this.setDefaultUri("http://www.webservicex.com/stockquote.asmx");
@@ -20,6 +22,7 @@ public class NlinkSoapConsumer extends WebServiceGatewaySupport {
     }
 
     public com.nab.nlinkweb.domain.restdomain.ConversionRate getConversionRate() {
+
         ConversionRate request = new ConversionRate();
         request.setFromCurrency(Currency.AED);
         request.setToCurrency(Currency.USD);
@@ -29,6 +32,20 @@ public class NlinkSoapConsumer extends WebServiceGatewaySupport {
                 .marshalSendAndReceive("http://www.webservicex.com/stockquote.asmx",
                         request,
                         new SoapActionCallback("http://www.webserviceX.NET/GetQuote"));*/
+
+        ConversionRateResponse response = new ConversionRateResponse();
+        response.setConversionRateResult(Double.MAX_VALUE);
+
+        return ConversionRateMapper.convert(response);
+
+    }
+
+    public com.nab.nlinkweb.domain.restdomain.ConversionRate getConversionRateHystrixTest() {
+        try {
+            Thread.sleep(SLEEP_MILLI);
+        } catch (InterruptedException e) {
+        }
+
 
         ConversionRateResponse response = new ConversionRateResponse();
         response.setConversionRateResult(Double.MAX_VALUE);

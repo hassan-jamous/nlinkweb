@@ -1,11 +1,11 @@
 spring:
   application:
     name: NlinkWeb
-  cloud:
-    config:
-      uri: http://localhost:8888
-#for local
 #  cloud:
-#      config:
-#        uri: file://application.yml
+#    config:
+#      uri: http://localhost:8888
+#for local
+  cloud:
+      config:
+        uri: file://application.yml
 

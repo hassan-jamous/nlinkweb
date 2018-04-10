@@ -105,6 +105,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.projectlombok:lombok:1.16.10')
     compile("org.springframework.ws:spring-ws-core")
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
 
     ajc('org.aspectj:aspectjtools:1.8.10')
     aspects('org.springframework:spring-aspects:4.3.6.RELEASE')
