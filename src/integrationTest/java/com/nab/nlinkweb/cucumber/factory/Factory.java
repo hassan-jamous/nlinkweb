@@ -5,8 +5,11 @@ import com.nab.nlinkweb.cucumber.component.ComponentTestPreparation;
 import com.nab.nlinkweb.cucumber.component.IntegrationTestPreparation;
 import com.nab.nlinkweb.cucumber.interfaces.TestPreparation;
 
-public class Factory {
+public final class Factory {
 
+    private Factory() {
+
+    }
     public static TestPreparation giveMeTestPreparation(String tag) {
         if (tag.equals("Integration")) {
             return new IntegrationTestPreparation();

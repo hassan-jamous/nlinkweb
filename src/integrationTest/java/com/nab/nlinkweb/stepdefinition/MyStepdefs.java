@@ -2,7 +2,6 @@ package com.nab.nlinkweb.stepdefinition;
 
 import com.nab.nlinkweb.Application;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -16,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
 @ContextConfiguration(classes = Application.class, loader = SpringBootContextLoader.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -28,7 +26,7 @@ public class MyStepdefs {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    ResponseEntity<String > response;
+    private ResponseEntity<String> response;
 
     @Then("^the client receives status code of (\\d+)$")
     public void theClientReceivesStatusCodeOf(int statusCode) throws Throwable {

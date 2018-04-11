@@ -26,6 +26,10 @@ hystrix.threadpool.default.coreSize: 5
 hystrix.threadpool.default.maxQueueSize: 1000
 hystrix.threadpool.default.queueSizeRejectionThreshold: 100
 
+systemProp.sonar.host.url: http://localhost:9000
+
+
+
 
 
 

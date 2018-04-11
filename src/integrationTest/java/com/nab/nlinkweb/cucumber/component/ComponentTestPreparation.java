@@ -10,7 +10,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
 public class ComponentTestPreparation implements TestPreparation {
-    public static WireMockServer wireMockServer;
+    private static WireMockServer wireMockServer;
 
     @Override
     public void prepareTestData() {
@@ -25,7 +25,7 @@ public class ComponentTestPreparation implements TestPreparation {
                 .notifier(new ConsoleNotifier(true)));
 
         wireMockServer.start();
-        configureFor("localhost",wireMockServer.port());
+        configureFor("localhost", wireMockServer.port());
         stubFor(post(urlEqualTo("/stockquote.asmx"))
                 .willReturn(aResponse()
                         .withStatus(200)

@@ -17,20 +17,19 @@ public class NlinkSoapConsumer extends WebServiceGatewaySupport {
 
     @Autowired
     public NlinkSoapConsumer(Jaxb2Marshaller marshaller) {
-        this.setDefaultUri(Configuration.currencyConverterEndPoint);
+        this.setDefaultUri(Configuration.getCurrencyConverterEndPoint());
         this.setMarshaller(marshaller);
         this.setUnmarshaller(marshaller);
     }
 
     public com.nab.nlinkweb.domain.restdomain.ConversionRate getConversionRate() {
-
         ConversionRate request = new ConversionRate();
         request.setFromCurrency(Currency.AED);
         request.setToCurrency(Currency.USD);
 
 
         ConversionRateResponse response = (ConversionRateResponse) getWebServiceTemplate()
-                .marshalSendAndReceive(Configuration.currencyConverterEndPoint,
+                .marshalSendAndReceive(Configuration.getCurrencyConverterEndPoint(),
                         request);
 
         return ConversionRateMapper.convert(response);

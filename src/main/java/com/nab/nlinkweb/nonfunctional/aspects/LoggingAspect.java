@@ -6,8 +6,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.beans.factory.annotation.Autowired;
-import springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +27,7 @@ public class LoggingAspect {
 
     @Around("annotatedClass() || methodOfAnnotatedClass()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
-        LOGGER.setLevel(Level.parse(Configuration.logLevel));
+        LOGGER.setLevel(Level.parse(Configuration.getLogLevel()));
         long start = System.currentTimeMillis();
         StringBuffer loggedMessage = new StringBuffer();
         loggedMessage.append(getMethodSignatureLogMessage(point));

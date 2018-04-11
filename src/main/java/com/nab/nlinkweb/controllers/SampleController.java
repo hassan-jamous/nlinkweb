@@ -21,7 +21,7 @@ public class SampleController implements GeneralFunction {
     @Loggable
     @RequestMapping(method = GET, value = "/")
     public String home() {
-        return Configuration.logLevel + Configuration.description;
+        return Configuration.getLogLevel() + Configuration.getDescription();
     }
 
     @Override
