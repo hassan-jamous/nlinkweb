@@ -9,7 +9,6 @@ Feature: the message can be retrieved
     And the client receives server version hello
 
 
-  @Integration
   @Component
   Scenario: client makes call soap test
     When the client calls soap test page

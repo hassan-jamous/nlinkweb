@@ -6,12 +6,21 @@ import cucumber.api.junit.Cucumber;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+
+import java.util.Enumeration;
+import java.util.Properties;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/integrationTest/resources", tags = "@Integration",
+@CucumberOptions(features = "src/integrationTest/resources",
         glue = "com.nab.nlinkweb.stepdefinition")
-public class CucumberIntegrationTest {
-    public static TestPreparation testPreparation = Factory.giveMeTestPreparation("Integration");
+public class CucumberTest {
+
+    public static String getCucumberTag(){
+        return System.getProperties().getProperty("cucumber.options").replaceAll(".*@","");
+    }
+    public static TestPreparation testPreparation = Factory.giveMeTestPreparation(getCucumberTag());
 
     @BeforeClass
     public static void prepare() {

@@ -174,4 +174,21 @@ task wrapper(type: Wrapper) {
     gradleVersion = '4.6'
 }
 
+task integrationTest(type: Test) {
+    include 'com/nab/nlinkweb/cucumber/configuration/CucumberTest.class'
+    systemProperties['cucumber.options'] = "-t @Integration"
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    outputs.upToDateWhen { false }
+}
+
+task componentTest(type: Test) {
+    include 'com/nab/nlinkweb/cucumber/configuration/CucumberTest.class'
+    systemProperties['cucumber.options'] = "-t @Component"
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    outputs.upToDateWhen { false }
+}
+
+
 
