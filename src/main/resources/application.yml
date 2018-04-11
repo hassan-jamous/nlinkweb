@@ -15,7 +15,7 @@ application:
 
 services:
   currencyConverter:
-    endpoint: http://www.webservicex.com/stockquote.asmx
+    endpoint: http://localhost:8089/stockquote.asmx
 
 management.endpoints.web.exposure.include: '*'
 
