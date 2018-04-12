@@ -11,7 +11,7 @@ pipeline {
             }
         stage('Build') {
             steps {
-                 gradle('build')
+                 gradle task:'build'
             }
         }
         stage('Test') {
