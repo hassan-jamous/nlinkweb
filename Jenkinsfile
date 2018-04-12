@@ -11,7 +11,7 @@ pipeline {
             }
         stage('Build') {
             steps {
-                 gradle task:'build'
+                 sh 'gradle build --info'
             }
         }
         stage('Test') {
