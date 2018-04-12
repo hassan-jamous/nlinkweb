@@ -6,7 +6,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,9 +17,6 @@ import java.util.Objects;
 public class LoggingAspect {
     private static final Logger LOGGER = Logger.getLogger(LoggingAspect.class.getName());
 
-    @Autowired
-    private Configuration config;
-
     @Pointcut("execution(@com.nab.nlinkweb.nonfunctional.aspects.interfaces.Loggable * *.*(..))")
     void annotatedClass() {
     }
@@ -31,7 +27,7 @@ public class LoggingAspect {
 
     @Around("annotatedClass() || methodOfAnnotatedClass()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
-        LOGGER.setLevel(Level.parse(config.getLogLevel()));
+        LOGGER.setLevel(Level.parse(Configuration.getLogLevel()));
         long start = System.currentTimeMillis();
         StringBuffer loggedMessage = new StringBuffer();
         loggedMessage.append(getMethodSignatureLogMessage(point));

@@ -4,9 +4,18 @@ logging:
   level:
     org.springframework.web: DEBUG
     com.nab.nlinkweb: DEBUG
+    org.springframework.ws.client.MessageTracing.sent: TRACE
+    org.springframework.ws.server.MessageTracing.sent: TRACE
+    org.springframework.ws.client.MessageTracing.received: TRACE
+    org.springframework.ws.server.MessageTracing.received: TRACE
+
 application:
   logging:
     level: INFO
+
+services:
+  currencyConverter:
+    endpoint: http://localhost:8089/stockquote.asmx
 
 management.endpoints.web.exposure.include: '*'
 
@@ -16,4 +25,11 @@ hystrix.timer.threadpool.default.coreSize: 30
 hystrix.threadpool.default.coreSize: 5
 hystrix.threadpool.default.maxQueueSize: 1000
 hystrix.threadpool.default.queueSizeRejectionThreshold: 100
+
+systemProp.sonar.host.url: http://localhost:9000
+
+
+
+
+
 

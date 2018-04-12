@@ -1,6 +1,7 @@
 package com.nab.nlinkweb.components;
 
 import com.nab.nlinkweb.domain.domainmapper.ConversionRateMapper;
+import com.nab.nlinkweb.nonfunctional.config.Application.Configuration;
 import nlink.wsdl.domain.ConversionRate;
 import nlink.wsdl.domain.ConversionRateResponse;
 import nlink.wsdl.domain.Currency;
@@ -16,25 +17,20 @@ public class NlinkSoapConsumer extends WebServiceGatewaySupport {
 
     @Autowired
     public NlinkSoapConsumer(Jaxb2Marshaller marshaller) {
-        this.setDefaultUri("http://www.webservicex.com/stockquote.asmx");
+        this.setDefaultUri(Configuration.getCurrencyConverterEndPoint());
         this.setMarshaller(marshaller);
         this.setUnmarshaller(marshaller);
     }
 
     public com.nab.nlinkweb.domain.restdomain.ConversionRate getConversionRate() {
-
         ConversionRate request = new ConversionRate();
         request.setFromCurrency(Currency.AED);
         request.setToCurrency(Currency.USD);
 
 
-        /*ConversionRateResponse response = (ConversionRateResponse) getWebServiceTemplate()
-                .marshalSendAndReceive("http://www.webservicex.com/stockquote.asmx",
-                        request,
-                        new SoapActionCallback("http://www.webserviceX.NET/GetQuote"));*/
-
-        ConversionRateResponse response = new ConversionRateResponse();
-        response.setConversionRateResult(Double.MAX_VALUE);
+        ConversionRateResponse response = (ConversionRateResponse) getWebServiceTemplate()
+                .marshalSendAndReceive(Configuration.getCurrencyConverterEndPoint(),
+                        request);
 
         return ConversionRateMapper.convert(response);
 

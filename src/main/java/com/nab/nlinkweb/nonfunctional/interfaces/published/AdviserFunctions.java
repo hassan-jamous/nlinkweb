@@ -1,30 +1,23 @@
-package com.nab.nlinkweb.nonfunctional.interfaces;
+package com.nab.nlinkweb.nonfunctional.interfaces.published;
 
 import com.nab.nlinkweb.domain.restdomain.Adviser;
 import com.nab.nlinkweb.domain.restdomain.Client;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.apache.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
 
 public interface AdviserFunctions {
 
 
     ResponseEntity<Adviser> deleteAdviser(String adviserId);
 
-    @ApiOperation(value = "loadAdviser",response = Adviser.class)
+    @ApiOperation(value = "loadAdviser", response = Adviser.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully retrieved list"),
-            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
-            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+            @ApiResponse(code = HttpStatus.SC_OK, message = "Successfully retrieved list"),
     }
     )
     ResponseEntity<Adviser> loadAdviser(String adviserId);

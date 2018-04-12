@@ -8,6 +8,10 @@ buildscript {
     }
 }
 
+plugins {
+    id "org.sonarqube" version "2.6.2"
+}
+
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'docker'
@@ -108,14 +112,17 @@ dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
     compile('io.springfox:springfox-swagger2:2.8.0')
     compile('io.springfox:springfox-swagger-ui:2.8.0')
-
+    compile(files(genJaxb.classesDir).builtBy(genJaxb))
+    jaxb ('com.sun.xml.bind:jaxb-xjc:2.1.7')
 
     ajc('org.aspectj:aspectjtools:1.8.10')
     aspects('org.springframework:spring-aspects:4.3.6.RELEASE')
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('com.github.tomakehurst:wiremock-standalone:2.16.0')
 
-    jaxb ('com.sun.xml.bind:jaxb-xjc:2.1.7')
-    compile(files(genJaxb.classesDir).builtBy(genJaxb))
+    integrationTestCompile group: 'info.cukes', name: 'cucumber-java', version: '1.2.5'
+    integrationTestCompile group: 'info.cukes', name: 'cucumber-junit', version: '1.2.5'
+    integrationTestCompile group: 'info.cukes', name: 'cucumber-spring', version: '1.2.5'
 
 }
 
@@ -170,5 +177,22 @@ task buildDocker(type: Docker, dependsOn: build) {
 task wrapper(type: Wrapper) {
     gradleVersion = '4.6'
 }
+
+task integrationTest(type: Test) {
+    include 'com/nab/nlinkweb/cucumber/configuration/CucumberTest.class'
+    systemProperties['cucumber.options'] = "-t @Integration"
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    outputs.upToDateWhen { false }
+}
+
+task componentTest(type: Test) {
+    include 'com/nab/nlinkweb/cucumber/configuration/CucumberTest.class'
+    systemProperties['cucumber.options'] = "-t @Component"
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    outputs.upToDateWhen { false }
+}
+
 
 

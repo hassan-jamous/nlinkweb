@@ -3,7 +3,7 @@ package com.nab.nlinkweb.controllers;
 
 import com.nab.nlinkweb.domain.restdomain.Adviser;
 import com.nab.nlinkweb.domain.restdomain.Client;
-import com.nab.nlinkweb.nonfunctional.interfaces.AdviserFunctions;
+import com.nab.nlinkweb.nonfunctional.interfaces.published.AdviserFunctions;
 import com.nab.nlinkweb.nonfunctional.varification.business.InputVerification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
