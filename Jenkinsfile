@@ -6,6 +6,7 @@ pipeline {
             stage('Checkout') {
                 steps {
                     checkout scm
+                    gradle tasks: 'wrapper'
                 }
             }
         stage('Build') {
