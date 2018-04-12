@@ -5,14 +5,14 @@ pipeline {
 
             stage('Checkout') {
                 steps {
-                    env
+                    
                     checkout scm
 
                 }
             }
         stage('Build') {
             steps {
-                 sh 'gradle build --info'
+                 sh '''/var/lib/jenkins/tools/hudson.plugins.gradle.GradleInstallation/gradle4.6/bin/gradle build '''
             }
         }
         stage('Test') {
